@@ -42,4 +42,50 @@ PlayStation 3:
 DecryptExecutable()
 --Hud Color Table
 WriteBytes(Executable|0x171F980|"00 00 00 00 3F 80 00 00 40 00 00 00 00 00 00 00 40 00 00 00 00 00 00 00 3F 80 00 00 3F 80 00 00 40 00 00 00 00 00 00 00")
+
+---- .set toc,   0x16A9500
+-- .set start, 0xA9B4A8
+-- .set og1, 0xBE1018
+-- .set og2, 0xBE0F38
+-- .set og3, 0x00BE1188
+
+
+-- .start:
+-- # r6 = character id
+-- lwz     r6, 0x78(r30)
+
+-- .set CGT, (start + char_group_table)
+-- lis     r7, CGT@ha
+-- addi    r7, r7, CGT@l
+-- lbzx    r7, r7, r6
+
+-- .set INT, (start + in_table)
+-- lis     r6, INT@ha
+-- addi    r6, r6, INT@l
+-- slwi r7, r7, 0x1
+-- lhzx    r7, r6, r7
+
+-- add    r7, r7, r2
+-- lwz     r5, 0(r7)
+
+-- blr
+
+-- char_group_table:
+    -- .byte 0,1,2,0,2,0,1,1,2
+    -- .align 2
+
+-- in_table:
+    -- .short 0x3C90                     # sonic_in
+    -- .short (0x016ADF24 - toc)         # shadow_in
+    -- .short (0x016ADF2C - toc)         # silver_in
+    -- .short 0
+
+--Sonicteam::DebugShortCut
+WriteVirtualBytes(0xA9B4A8|"80 DE 00 78 3C E0 00 AA 38 E7 B4 D4 7C E7 30 AE 3C C0 00 AA 38 C6 B4 E0 54 E7 08 3C 7C E6 3A 2E 7C E7 12 14 80 A7 00 00 4E 80 00 20 00 01 02 00 02 00 01 01 02 00 00 00 3C 90 4A 24 4A 2C 00 00")
+
+--branch 1
+WriteVirtualBytes(0xBE11888|"4BEBA321")
+
+--Sonic Team has actually cleaned up the life bar animation code, resulting in not requiring intercepting the initialization in other places. I suppose the ring balance plate still needs to be checked.
+
 EncryptExecutable()
