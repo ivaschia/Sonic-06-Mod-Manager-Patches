@@ -1,11 +1,25 @@
 --[Patch]--
 Title("Restore Pause Mission Text")
 Author("Desko & Hyper")
-Platform("Xbox 360")
+Platform("All Systems")
 Blurb("Restores the mission text window appearing when the game is paused.")
 
 --[Functions]--
+
+All Systems:
 DecryptExecutable()
+
+Xbox 360:
 WriteVirtualNop(0x824F0018)
 WriteVirtualNop(0x824F02A0)
 WriteVirtualBytes(0x82509AEA|"15 FC")
+
+PlayStation 3:
+
+
+--Doesn't work but close
+WriteVirtualNop(0xBF9284)
+WriteVirtualNop(0xBF94C0)
+-- 0x4b30(r2)
+WriteVirtualBytes(0xC94086|"4B 30")
+EncryptExecutable()
