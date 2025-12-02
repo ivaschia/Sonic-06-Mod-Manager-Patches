@@ -17,6 +17,9 @@ ParameterEdit("core\scripts\render\stage"|"GenerateCSMLevels"|"4")
 EndBlock("core\archives\scripts.arc")
 
 PlayStation 3:
+
+--Causes crashes.
+
 BeginBlock("core\archives\cache.arc")
 ParameterEdit("core\scripts\render"|"TerrainShadowMapLevel"|"4")
 ParameterEdit("core\scripts\render"|"ClumpShadowMapLevel"|"4")
